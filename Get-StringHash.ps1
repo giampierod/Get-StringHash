@@ -18,9 +18,7 @@ Specifies the cryptographic hash function to use for computing the hash value of
         -- SHA256
         -- SHA384
         -- SHA512
-        -- MACTripleDES
         -- MD5
-        -- RIPEMD160
 
 If no value is specified, or if the parameter is omitted, the default value is SHA256.
 
@@ -60,10 +58,12 @@ SourceString : UseMD5
 param (
     [Parameter(Position=0,mandatory=$true, ValueFromPipeline=$true)]
     [String] $String,
+    [ValidateSet("SHA1","SHA256","SHA384","SHA512","MD5")]
     [Parameter(Position=1,mandatory=$false)]
     [String] $Algorithm = "SHA256"
 )
 
+# The StringHashInfo Class is used to make the return data similar to FileHashInfo for consistency.
 class StringHashInfo {
     [String] $Hash;
     [String] $Algorithm; 
@@ -87,5 +87,4 @@ $stream = [System.IO.MemoryStream]::new($byteArray)
 $hash = Get-FileHash -InputStream $stream -Algorithm $Algorithm
 $stream.Close()
 
-$return = [StringHashInfo]::new($hash, $String)
-$return
+[StringHashInfo]::new($hash, $String)

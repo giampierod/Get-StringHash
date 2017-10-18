@@ -18,9 +18,7 @@ Specifies the cryptographic hash function to use for computing the hash value of
 * SHA256
 * SHA384
 * SHA512
-* MACTripleDES
 * MD5
-* RIPEMD160
 
 If no value is specified, or if the parameter is omitted, the default value is SHA256.
 
